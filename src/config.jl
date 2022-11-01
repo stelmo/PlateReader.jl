@@ -3,7 +3,7 @@ get_time(x, time_delim) = begin
     m = match(one_or_more(DIGIT) * exactly(1, " $time_delim"), x)
     isnothing(m) ? 0.0 : parse(Float64, first(split(m.match)))
 end
-string_to_minutes(x) = get_time(x, "min") + 60 * get_time(x, "h")
+string_to_hours(x) = 1/60 * get_time(x, "min") + get_time(x, "h")
 
 config = (
     biolector = (
@@ -14,7 +14,7 @@ config = (
         time_col_offset = 4,
         descriptor_num_headers = 4,
         descriptor_headers_row_offset = 3,
-        to_minutes_func = x -> x,
+        to_hours_func = x -> x,
     ),
     clariostar = (
         instrument = "clariostar",
@@ -24,6 +24,6 @@ config = (
         time_col_offset = 2,
         descriptor_num_headers = 2,
         descriptor_headers_row_offset = 2,
-        to_minutes_func = x -> string_to_minutes(x),
+        to_hours_func = x -> string_to_hours(x),
     ),
 )

@@ -26,7 +26,7 @@ function read_data_from_xlsx(file_location, options)
     )
 
     ts = [
-        options.to_minutes_func(sheet[well_row_num+options.time_row_offset, j]) for
+        options.to_hours_func(sheet[well_row_num+options.time_row_offset, j]) for
         j = (start_col_num+options.time_col_offset):stop_col_num
     ]
     descriptor_headers = [
@@ -42,6 +42,11 @@ function read_data_from_xlsx(file_location, options)
         :,
         options.descriptor_num_headers,
     )
+    if options.instrument == "clariostar"
+        # add a channel to make downstream analysis easier
+        push!(descriptor_headers, "Channel")
+        descriptors = hcat(descriptors, fill(sheet[well_row_num, 3], size(descriptors, 1)))
+    end
     measurements = reshape(
         [
             sheet[i, j] for
