@@ -37,7 +37,7 @@ $(TYPEDSIGNATURES)
 function top_down(xs, ys; min_time_length = 0.5, max_rmse = 0.05)
     rngs = []
     min_length = findfirst(x -> x > min_time_length, xs)
-    _rmse(x) = last(_least_squares(xs[x], ys[x]))
+    rmse_f(x) = last(_least_squares(xs[x], ys[x]))
 
     _top_down!(rngs, 1, length(ys), min_length, rmse_f; max_rmse)
 
