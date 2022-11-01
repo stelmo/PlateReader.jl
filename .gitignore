@@ -1,1 +1,3 @@
 /Manifest.toml
+*.xlsx#
+test.jl
