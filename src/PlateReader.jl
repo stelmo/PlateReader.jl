@@ -19,6 +19,7 @@ export config,
     get_mean_and_std,
     substract_single_channels,
     single_channel_mean_and_std,
-    sliding_window
+    sliding_window,
+    top_down
 
 end
