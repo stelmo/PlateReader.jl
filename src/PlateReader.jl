@@ -2,9 +2,10 @@ module PlateReader
 
 using XLSX, ReadableRegex, Dates, DataFrames, DocStringExtensions
 
-include("readers.jl")
 include("config.jl")
+include("readers.jl")
+include("utils.jl")
 
-export read_data_from_xlsx, config
+export config, read_data_from_xlsx
 
 end

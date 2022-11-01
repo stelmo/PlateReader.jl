@@ -25,5 +25,5 @@ config = (
         descriptor_num_headers = 2,
         descriptor_headers_row_offset = 2,
         to_minutes_func = x -> string_to_minutes(x),
-    )
+    ),
 )
