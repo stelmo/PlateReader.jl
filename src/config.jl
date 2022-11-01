@@ -3,7 +3,7 @@ get_time(x, time_delim) = begin
     m = match(one_or_more(DIGIT) * exactly(1, " $time_delim"), x)
     isnothing(m) ? 0.0 : parse(Float64, first(split(m.match)))
 end
-string_to_hours(x) = 1/60 * get_time(x, "min") + get_time(x, "h")
+string_to_hours(x) = 1 / 60 * get_time(x, "min") + get_time(x, "h")
 
 config = (
     biolector = (
