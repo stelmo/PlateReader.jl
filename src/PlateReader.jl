@@ -7,12 +7,15 @@ using XLSX,
     DocStringExtensions,
     Statistics,
     DataFramesMeta,
-    Measurements
+    Measurements,
+    CairoMakie, 
+    ColorSchemes
 
 include("config.jl")
 include("readers.jl")
 include("utils.jl")
 include("segmentation.jl")
+include("plots.jl")
 
 export config,
     read_data_from_xlsx,
@@ -20,6 +23,7 @@ export config,
     substract_single_channels,
     single_channel_mean_and_std,
     sliding_window,
-    top_down
+    top_down,
+    plot_growth_fit
 
 end
