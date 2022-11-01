@@ -5,8 +5,8 @@ Assume equally spaced. Only return fits to segments longer than `min_length`,
 break segments when the coefficient of determination drops below `min_r2`. 
 """
 function sliding_window(xs, ys; min_length = 0.1, max_rmse = 0.2)
-    break_points = [-1:0]
-    linear_fits = []
+    break_points = [-1:0,]
+    linear_fits = [(0.0,0.0,0.0),]
     min_idx_length = findfirst(x -> x > min_length, xs)
 
     while true
@@ -26,8 +26,8 @@ function sliding_window(xs, ys; min_length = 0.1, max_rmse = 0.2)
             end
         end
     end
-
-    linear_fits, break_points[2:end]
+    idxs = findall(x -> length(x) > min_idx_length, break_points)
+    linear_fits[idxs], break_points[idxs]
 end
 
 """
