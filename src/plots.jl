@@ -2,11 +2,15 @@
 $(TYPEDSIGNATURES)
 
 """
-function plot_growth_fit(df, wells, blank_wells, channel, title)
+function plot_growth_fit(df, wells, channel, title; blank_wells = nothing, min_time_length = 0.5, max_rmse = 0.05)
 
-    media = single_channel_mean_and_std(df, wells, channel)
-    blank = single_channel_mean_and_std(df, blank_wells, channel)
-    data = substract_single_channels(media, blank)
+    if isnothing(blank_wells)
+        data = single_channel_mean_and_std(df, wells, channel)
+    else
+        media = single_channel_mean_and_std(df, wells, channel)
+        blank = single_channel_mean_and_std(df, blank_wells, channel)
+        data = substract_single_channels(media, blank)
+    end
     
     # plot growth curve
     xs = data[!, :Time]
@@ -29,7 +33,7 @@ function plot_growth_fit(df, wells, blank_wells, channel, title)
     xs = data[!, :Time][idxs]
     ys = [log(y.val) for y in data[!, :Measurement][idxs]]
     
-    linear_fits, break_points = top_down(xs, ys; min_time_length = 0.5, max_rmse = 0.05)
+    linear_fits, break_points = top_down(xs, ys; min_time_length, max_rmse)
     
     for ((b0, b1, _), bprng) in zip(linear_fits, break_points)
         ypreds = b0 .+ b1 .* xs[bprng]
